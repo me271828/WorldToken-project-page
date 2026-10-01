@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WorldToken — Time-First Sequence Modeling for Robotic Imitation Learning</title>
+  <meta name="description" content="WorldToken learns from demonstrations and uses past observations to decide what a robot should do next. Watch it perform kitchen tasks and remember sequences of block rearrangements.">
+  <meta name="theme-color" content="#2455e7">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232455e7'/%3E%3Cpath d='M6 10l4 13 6-10 6 10 4-13' fill='none' stroke='white' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css"><script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+ <symbol id="icon-paper" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4Zm0 0v5h4M9 12h6m-6 4h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+ <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+ <symbol id="icon-model" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Zm0 10 9-5M12 12 3 7m9 5v10M7.5 4.5l9 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+ <symbol id="icon-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+ <symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8V4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+</defs></svg>
+<header class="topbar"><div class="wrap">
+ <a class="brand" href="#" aria-label="WorldToken home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="0" y="0" width="32" height="32" rx="8" fill="#2455e7"/><path d="m6 10 4 13 6-10 6 10 4-13" fill="none" stroke="#fff" stroke-width="2.7" stroke-linejoin="round"/></svg>WorldToken</a>
+ <nav class="nav" aria-label="Main navigation"><a href="#memory">Demos</a><a href="#method">Method</a><a href="#memory">Memory</a><a href="#resources">Resources</a><a class="nav-paper" href="https://arxiv.org/abs/2608.22591" target="_blank" rel="noopener">Paper</a></nav>
+</div></header>
+<main id="main">
+ <section class="hero wrap" aria-labelledby="paper-title">
+  <h1 id="paper-title">World<span>Token</span></h1>
+  <h2>Time-First Sequence Modeling<br>for Robotic Imitation Learning</h2>
+  <div class="authors"><span>Chunkai Yang<sup>1,*</sup></span><span>Andong Yang<sup>2,*</sup></span><span>Di Huang<sup>1,†</sup></span><span>Chao Gao<sup>2,†</sup></span><span>Guyue Zhou<sup>2</sup></span></div>
+  <p class="institutions"><sup>1</sup> Wuhan University &nbsp; &nbsp; <sup>2</sup> Tsinghua University</p>
+  <p class="author-note">* Equal contribution &nbsp; · &nbsp; † Corresponding authors</p>
+  <div class="resource-buttons">
+   <a class="button primary" href="https://arxiv.org/abs/2608.22591" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#icon-paper"/></svg>Paper</a>
+   <a class="button" href="https://github.com/me271828/WorldToken" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#icon-code"/></svg>Code</a>
+   <a class="button" href="https://huggingface.co/mepi31415/WorldToken_Checkpoints" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#icon-model"/></svg>Models</a>
+   <a class="button" href="https://huggingface.co/datasets/mepi31415/WorldToken_Experiment_Records" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#icon-data"/></svg>Experiment Records</a>
+   <a class="button" href="#memory"><svg aria-hidden="true"><use href="#icon-play"/></svg>Videos</a>
+  </div>
+ </section>
+ <section class="overview wrap" aria-labelledby="opening-question">
+  <h2 class="opening-question" id="opening-question">Can a robot read the world as a language model reads text?</h2>
+  <figure class="opening-figure"><a class="figure-link" href="assets/sequence-overview.webp" target="_blank" rel="noopener" aria-label="Open full-size comparison of a language model and WorldToken"><img src="assets/sequence-overview.webp" alt="Paper Figure 1 compares a language model that reads text tokens with WorldToken, which reads a sequence of robot observations to generate actions." width="2200" height="635" fetchpriority="high"></a><figcaption>A language model reads a sequence of text tokens to predict what comes next. WorldToken combines what the robot sees and senses at each step into one world token, then reads the sequence to plan its next movements.</figcaption></figure>
+  <div class="stats">
+   <div class="stat"><span class="stat-value">1</span><span class="stat-label">World token per step</span><small>WorldToken combines what the robot sees and senses at each step into one compact representation.</small></div>
+   <div class="stat"><span class="stat-value">59.4<span style="font-size:.6em">%</span></span><span class="stat-label">Success in kitchen tasks</span><small>An 85-million-parameter model learns to perform 23 tasks in the RoboCasa kitchen simulator.</small></div>
+   <div class="stat"><span class="stat-value">95<span style="font-size:.6em">%</span></span><span class="stat-label">Success in block rearrangement</span><small>The robot uses more than two minutes of past observations to keep track of a sequence of rearrangements.</small></div>
+  </div>
+ </section>
+ <section class="section wrap" id="method">
+  <div class="section-head"><div><span class="eyebrow">01 / Method</span><h2>WorldToken connects what the robot sees over time.</h2></div><p class="intro">At each step, WorldToken combines the camera views, the robot’s body position, and its task instruction into a compact representation called a world token. It uses the sequence of these tokens to decide how to move.</p></div>
+  <figure class="method-figure"><a class="figure-link" href="assets/architecture.webp" target="_blank" rel="noopener" aria-label="Open full-size architecture figure"><img src="assets/architecture.webp" alt="WorldToken combines what the robot sees and senses, connects it with earlier observations, and plans the next movements." loading="lazy" width="2400" height="896"></a><figcaption>The robot observes its surroundings, plans and carries out a few movements, then observes again. <a class="figure-hint" href="assets/architecture.webp" target="_blank" rel="noopener">View full size</a></figcaption></figure>
+  <div class="steps"><article><span class="step-number">01 — PERCEIVE</span><h3>The robot observes its surroundings.</h3><p>WorldToken brings together the robot’s camera views, body position, and task instruction so it can use them together.</p></article><article><span class="step-number">02 — REMEMBER</span><h3>It uses what happened earlier.</h3><p>The model reads the world tokens in time order, connecting the current situation with earlier observations.</p></article><article><span class="step-number">03 — ACT</span><h3>It plans its next movements.</h3><p>Using the current observation and its history, the model generates a short sequence of movements for the robot to carry out.</p></article></div>
+ </section>
+ <section class="section memory" id="memory"><div class="wrap">
+  <div class="section-head"><div><span class="eyebrow">02 / Why history matters</span><h2>A longer memory helps the robot complete the task.</h2></div><p class="intro">The robot must rearrange three colored blocks through a sequence of swaps. Both videos use the same model and start with the same block arrangement. We change how far back the model can look.</p></div>
+  <div class="comparison">
+   <article class="compare-card"><div class="compare-title"><h3>Longer memory</h3><span>About 146 seconds of history</span></div><video id="history-long" controls muted playsinline preload="metadata" poster="assets/history-long.jpg" aria-label="The robot rearranges blocks with a longer memory"><source src="demos/rmbench/videos/history608_seed100015.mp4" type="video/mp4"></video><div class="compare-foot"><strong class="positive">The robot completes the sequence in about 2 min 23 s.</strong></div></article>
+   <article class="compare-card"><div class="compare-title"><h3>Shorter memory</h3><span>About 15 seconds of history</span></div><video id="history-short" controls muted playsinline preload="metadata" poster="assets/history-short.jpg" aria-label="The robot attempts the same task with a shorter memory"><source src="demos/rmbench/videos/history64_seed100015.mp4" type="video/mp4"></video><div class="compare-foot"><strong>The robot does not finish within 3 min 30 s.</strong></div></article>
+  </div>
+  <div class="player-tools"><button class="play-both" id="play-both" type="button" disabled>Play both</button><button id="restart-both" type="button" disabled>Restart</button><label for="compare-speed">Speed</label><select id="compare-speed"><option value="1">1×</option><option value="2">2×</option><option value="4" selected>4×</option><option value="8">8×</option></select><output id="compare-clock" aria-label="Simulation time">0:00 / 3:30 simulated</output></div>
+  <p id="compare-error" class="playback-error" role="alert" hidden>Playback could not start. Please use the individual video controls.</p>
+  <div class="history-chart"><div><h3>Remembering more of the past improves task completion.</h3><p>When the robot can look further back, it is more likely to finish the block-rearrangement task. The bars show how often it succeeds with different amounts of memory.</p></div><div class="bars" role="img" aria-label="Task completion with approximately 8, 15, 31, 69, and 146 seconds of history: 28, 38, 59, 92, and 95 percent."><div class="bar-item"><strong>28%</strong><div class="bar" style="--value:28"></div><span>8 s</span></div><div class="bar-item"><strong>38%</strong><div class="bar" style="--value:38"></div><span>15 s</span></div><div class="bar-item"><strong>59%</strong><div class="bar" style="--value:59"></div><span>31 s</span></div><div class="bar-item"><strong>92%</strong><div class="bar" style="--value:92"></div><span>69 s</span></div><div class="bar-item"><strong>95%</strong><div class="bar" style="--value:95"></div><span>146 s</span></div></div></div><p class="chart-axis">How much of the past the robot can see</p>
+  <section class="extended-demo" id="long-demonstration" aria-labelledby="extended-heading">
+   <div class="extended-copy"><h3 id="extended-heading">The robot can keep rearranging blocks for many minutes.</h3><p>In this longer demonstration, the robot continues after its first success and makes 31 correctly ordered swaps.</p><p>Watch the full recording below, or increase the playback speed to see how the sequence unfolds.</p><a class="section-link" href="demos/rmbench/">Watch more block-rearrangement videos</a></div>
+   <div class="extended-player"><video id="extended-video" controls muted playsinline preload="metadata" poster="assets/extended-poster.jpg" aria-label="The robot continues rearranging blocks for more than 14 minutes"><source src="demos/rmbench/videos/extended_seed100008.mp4" type="video/mp4"></video><div class="player-tools"><button type="button" class="play-both" id="extended-toggle">Play video</button><label for="extended-speed">Speed</label><select id="extended-speed"><option value="1">1×</option><option value="2">2×</option><option value="4" selected>4×</option><option value="8">8×</option><option value="16">16×</option></select><span class="recording-duration">Full recording: 14 min 36 s</span></div><p id="extended-error" class="playback-error" role="alert" hidden>The video could not start. Please try the video’s own play button.</p></div>
+  </section>
+ </div></section>
+ <section class="section wrap" id="demonstrations">
+  <div class="section-head"><div><span class="eyebrow">03 / Multitask control</span><h2>WorldToken learns to handle everyday kitchen tasks.</h2></div><a class="section-link" href="demos/robocasa/">Watch all 22 kitchen demonstrations</a></div>
+  <div class="demo-grid" id="demo-grid"><article class="demo-card"><video controls loop muted playsinline preload="none" poster="assets/PnPCounterToCab.jpg" aria-label="Place a mango in the cabinet"><source src="demos/robocasa/videos/01_Pick_and_Place/PnPCounterToCab.mp4" type="video/mp4"></video><h3>Place a mango in the cabinet</h3></article>
+<article class="demo-card"><video controls loop muted playsinline preload="none" poster="assets/OpenSingleDoor.jpg" aria-label="Open the cabinet door"><source src="demos/robocasa/videos/02_Opening_and_closing_doors/OpenSingleDoor.mp4" type="video/mp4"></video><h3>Open the cabinet door</h3></article>
+<article class="demo-card"><video controls loop muted playsinline preload="none" poster="assets/OpenDrawer.jpg" aria-label="Open the left drawer"><source src="demos/robocasa/videos/03_Opening_and_closing_drawers/OpenDrawer.mp4" type="video/mp4"></video><h3>Open the left drawer</h3></article>
+<article class="demo-card"><video controls loop muted playsinline preload="none" poster="assets/TurnOnSinkFaucet.jpg" aria-label="Turn on the faucet"><source src="demos/robocasa/videos/04_Turning_levers/TurnOnSinkFaucet.mp4" type="video/mp4"></video><h3>Turn on the faucet</h3></article>
+<article class="demo-card"><video controls loop muted playsinline preload="none" poster="assets/TurnOnStove.jpg" aria-label="Turn on the stove"><source src="demos/robocasa/videos/05_Twisting_knobs/TurnOnStove.mp4" type="video/mp4"></video><h3>Turn on the stove</h3></article>
+<article class="demo-card"><video controls loop muted playsinline preload="none" poster="assets/CoffeePressButton.jpg" aria-label="Press the coffee-machine button"><source src="demos/robocasa/videos/07_Pressing_buttons/CoffeePressButton.mp4" type="video/mp4"></video><h3>Press the coffee-machine button</h3></article></div>
+  <div class="gallery-note"><p>These videos show WorldToken performing tasks in a simulated kitchen. Each clip shows the same action from three camera views, so you can see how the robot moves and handles objects.</p><a class="section-link" href="https://huggingface.co/datasets/mepi31415/WorldToken_Experiment_Records" target="_blank" rel="noopener">Full experiment records</a></div>
+ </section>
+ <section class="section results" id="results"><div class="wrap">
+  <div class="section-head"><div><span class="eyebrow">04 / Learning from demonstrations</span><h2>More demonstrations help the robot complete more tasks.</h2></div><p class="intro">WorldToken learns by following examples of how a task should be done. Giving it more examples helps it perform kitchen tasks more successfully.</p></div>
+  <div class="learning-results">
+   <div class="learning-copy"><h3>The robot learns from examples.</h3><p>We trained an 85-million-parameter model with different numbers of demonstrations for each task. As the number of examples grew, it succeeded more often across 23 kitchen tasks.</p><p>The chart shows how often the robot completes a task successfully.</p><a class="section-link" href="https://arxiv.org/pdf/2608.22591" target="_blank" rel="noopener">Read more about the experiments in the paper</a></div>
+   <figure class="learning-chart"><div class="learning-bars" role="img" aria-label="Task completion with 50, 100, 300, 1000, and 2900 demonstrations per task: 20.2, 31.8, 46.8, 53.9, and 59.4 percent.">
+    <div class="learning-bar"><strong>20.2%</strong><div style="--value:20.2"></div><span>50</span></div>
+    <div class="learning-bar"><strong>31.8%</strong><div style="--value:31.8"></div><span>100</span></div>
+    <div class="learning-bar"><strong>46.8%</strong><div style="--value:46.8"></div><span>300</span></div>
+    <div class="learning-bar"><strong>53.9%</strong><div style="--value:53.9"></div><span>1,000</span></div>
+    <div class="learning-bar"><strong>59.4%</strong><div style="--value:59.4"></div><span>2,900</span></div>
+   </div><figcaption>Number of demonstrations for each task</figcaption></figure>
+  </div>
+  <div class="paper-scaling"><h3>The scaling study also compares models of different sizes.</h3><p>The left plot shows how adding demonstrations reduces errors in predicted movements. The right plot shows how those errors change with model size.</p><figure class="result-figure"><a class="figure-link" href="assets/scaling.webp" target="_blank" rel="noopener" aria-label="Open full-size scaling figure from the paper"><img src="assets/scaling.webp" alt="Paper Figure 4 compares action prediction errors across different numbers of demonstrations and different model sizes." width="2200" height="700" loading="lazy"></a><figcaption>More demonstrations help the robot predict movements more accurately, while the benefits of increasing model size eventually level off. <a class="figure-hint" href="assets/scaling.webp" target="_blank" rel="noopener">View full size</a></figcaption></figure></div>
+ </div></section>
+<section class="section wrap" id="resources">
+  <div class="section-head"><div><span class="eyebrow">05 / Open research</span><h2>You can explore the work and try it yourself.</h2></div><p class="intro">We share our code, trained models, and experiment records so you can try WorldToken and learn more about how it works.</p></div>
+  <div class="resource-grid">
+   <a class="resource-card" href="https://github.com/me271828/WorldToken" target="_blank" rel="noopener"><div class="resource-icon"><svg aria-hidden="true"><use href="#icon-code"/></svg></div><h3>Code</h3><p>Use the code and setup instructions to train WorldToken or run it on new tasks.</p><span class="section-link">GitHub · WorldToken</span></a>
+   <a class="resource-card" href="https://huggingface.co/mepi31415/WorldToken_Checkpoints" target="_blank" rel="noopener"><div class="resource-icon"><svg aria-hidden="true"><use href="#icon-model"/></svg></div><h3>Trained models</h3><p>Download trained models and follow the instructions to run them in RoboCasa.</p><span class="section-link">Hugging Face · Models</span></a>
+   <a class="resource-card" href="https://huggingface.co/datasets/mepi31415/WorldToken_Experiment_Records" target="_blank" rel="noopener"><div class="resource-icon"><svg aria-hidden="true"><use href="#icon-data"/></svg></div><h3>Experiment records</h3><p>Browse the training logs, test results, and videos behind the paper’s findings.</p><span class="section-link">Hugging Face · Records</span></a>
+  </div>
+  <div class="citation"><div class="citation-head"><h3>Citation</h3><button class="button" type="button" id="copy-bibtex">Copy BibTeX</button></div><pre id="bibtex">@article{yang2026worldtoken,
+  title   = {WorldToken: Time-First Sequence Modeling for Robotic Imitation Learning},
+  author  = {Yang, Chunkai and Yang, Andong and Huang, Di and Gao, Chao and Zhou, Guyue},
+  journal = {arXiv preprint arXiv:2608.22591},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2608.22591}
+}</pre><p class="copy-status" id="copy-status" role="status"></p></div>
+ </section>
+</main>
+<footer class="footer"><div class="wrap"><span>WorldToken · Wuhan University &amp; Tsinghua University</span><span><a href="https://arxiv.org/abs/2608.22591">arXiv:2608.22591</a> &nbsp; · &nbsp; 2026</span></div></footer>
+</body></html>
